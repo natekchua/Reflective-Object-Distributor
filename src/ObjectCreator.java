@@ -1,38 +1,43 @@
-import java.util.HashMap;
+import ObjectTypes.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ObjectCreator {
     private Scanner input = new Scanner(System.in);
+    private ArrayList <Object> objects = new ArrayList<>(); //stores objects created by the user.
 
+    /*
+    method to handle user interaction for creating objects.
+     */
     public void runMenu(){
-        System.out.println("==========");
-        System.out.println("OBJECT CREATOR");
-        System.out.println("Select an Object to create:");
-        displayMenu();
-        int choice = input.nextInt();
-
-            switch(choice){
+        boolean proceed = true;
+        while(proceed) {
+            displayMenu();
+            System.out.print("\nEnter choice: ");
+            int choice = input.nextInt();
+            switch (choice) {
                 case 1:
-                    createObjectA();                    //obj with primitive values only
+                    objects.add(createObjectA());
                     break;
                 case 2:
-                    //obj that contains references to other objects
-                    createObjectB();
+                    objects.add(createObjectB());
                     break;
                 case 3:
-                    //object that contains an array of primitives
-                    createObjectC();
+                    objects.add(createObjectC());
                     break;
                 case 4:
-                    //Object that uses an instance of one of Java's collection classes to refer to other objects
-                    new ObjectD();
+                    objects.add(createObjectD());
                     break;
                 case 5:
-                    createObjectE();
+                    objects.add(createObjectE());
+                    break;
+                case 6:
+                    proceed = false;
+                    break;
                 default:
-                    System.out.println("Invalid choice. Please try again.");
+                    System.out.println("Invalid choice. Please try again.\n");
             }
-
+        }
     }
 
     /*
@@ -66,7 +71,7 @@ public class ObjectCreator {
     user creates an object that contains an array of primitives.
      */
     private ObjectC createObjectC() {
-        System.out.print("** CREATING OBJECT WITH ARRAY OF PRIMITIVES **");
+        System.out.println("** CREATING OBJECT WITH ARRAY OF PRIMITIVES **");
 
         System.out.print("Set length of array: ");
         int length = input.nextInt();
@@ -81,14 +86,59 @@ public class ObjectCreator {
         return primitiveArrayObject;
     }
 
-    private void createObjectD() {
+    /*
+    user creates an object that contains an array of object references.
+     */
+    private ObjectD createObjectD() {
+        System.out.println("** CREATING OBJECT WITH ARRAY OF OBJECT REFERENCES **");
+
+        System.out.print("Set length of array: ");
+        int length = input.nextInt();
+        ObjectD referenceArrayObject = new ObjectD(length);
+        ObjectA [] arr = referenceArrayObject.getArray();
+
+        for(int i = 0; i < arr.length; i++){
+            System.out.print("Set value for element at index" + "[" + i + "]: ");
+            arr[i] = createObjectA();
+        }
+        referenceArrayObject.setArray(arr);
+        return referenceArrayObject;
     }
 
-    private void createObjectE() {
+    /*
+    user creates an object that uses an instance of one of Java's collection classes to
+    refer to other objects. ObjectTypes.ObjectE uses ArrayList.
+     */
+    private ObjectE createObjectE() {
+        ObjectE collectionObject = new ObjectE();
+        System.out.println("** CREATING OBJECT WITH JAVA COLLECTION **");
 
+        ArrayList<ObjectA> arr = collectionObject.getObjectsArray();
+        System.out.println("Add an object into Java Collection Structure? (y/n): ");
+        input.nextLine();
+        String choice = input.nextLine();
+
+        if(choice.equals("y")){
+            boolean proceed = true;
+            while(proceed){
+                arr.add(createObjectA());
+                System.out.println("Add another object? (y/n): ");
+                input.nextLine();
+                choice = input.nextLine();
+                if(choice.equals("n"))
+                    proceed = false;
+            }
+        }
+
+        return collectionObject;
     }
 
     private void displayMenu() {
+        System.out.println("\n==============");
+        System.out.println("OBJECT CREATOR");
+        System.out.println("==============");
+
+        System.out.println("\nSelect an Object to create:");
         System.out.println("1. Object with only Primitive Variables");
         System.out.println("2. Object that contains references to other objects");
         System.out.println("3. Object that contains an array of primitives");

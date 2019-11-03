@@ -1,10 +1,14 @@
-import java.util.ArrayList;
+package ObjectTypes;
 
 /*
  an object that contains an array of primitives.
 */
 public class ObjectC {
     private int [] array;
+
+    public ObjectC(){
+
+    }
 
     public ObjectC(int length){
         this.array = new int[length];
