@@ -2,19 +2,35 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2487b3aa-3655-4bd1-b3c4-96d9f8cf3f48" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ObjectTypes/ObjectE.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/LICENSE.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/README.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/jdom-2.0.6-contrib.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/jdom-2.0.6-javadoc.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/jdom-2.0.6-junit.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/jdom-2.0.6-sources.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/jdom-2.0.6.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lib/jaxen-1.1.6.LICENSE.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lib/jaxen-1.1.6.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lib/xalan/serializer-2.7.2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lib/xalan/xalan-2.7.2.LICENSE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lib/xalan/xalan-2.7.2.NOTICE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lib/xalan/xalan-2.7.2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lib/xerces.2.11.LICENSE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lib/xerces.2.11.NOTICE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lib/xercesImpl.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/lib/xml-apis.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Client.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Server.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/A3/ObjectA.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/A3/ObjectB.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/A3/ObjectC.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/A3.iml" beforeDir="false" afterPath="$PROJECT_DIR$/A3.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/A3/ObjectCreator.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/ObjectCreator.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/A3/ObjectD.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ObjectA.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ObjectTypes/ObjectA.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ObjectB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ObjectTypes/ObjectB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ObjectC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ObjectTypes/ObjectC.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/A3/ObjectE.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/A3/ObjectTypes/ObjectB.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/ObjectTypes/ObjectB.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/A3/ObjectTypes/ObjectC.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/ObjectTypes/ObjectC.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/A3/ObjectTypes/ObjectD.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/ObjectTypes/ObjectD.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/A3/Sender.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ObjectCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ObjectCreator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ObjectD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ObjectTypes/ObjectD.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Sender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Serializer.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,9 +41,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
         <option value="FxmlFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -35,15 +51,19 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1T2Etf5dv1nQnRQXQPRn4YqTGps" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -57,9 +77,16 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
-    <configuration name="Sender" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Sender" />
+  <component name="RunManager" selected="Application.ObjectCreator">
+    <configuration name="ObjectCreator" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ObjectCreator" />
+      <module name="A3" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Serializer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Serializer" />
       <module name="A3" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -67,7 +94,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Sender" />
+        <item itemvalue="Application.ObjectCreator" />
+        <item itemvalue="Application.Serializer" />
       </list>
     </recent_temporary>
   </component>
@@ -85,7 +113,13 @@
       <workItem from="1572650909009" duration="116000" />
       <workItem from="1572651040701" duration="150000" />
       <workItem from="1572651205893" duration="923000" />
-      <workItem from="1572726867985" duration="12494000" />
+      <workItem from="1572726867985" duration="12796000" />
+      <workItem from="1572742858090" duration="2597000" />
+      <workItem from="1572758828133" duration="1825000" />
+      <workItem from="1572897247188" duration="1352000" />
+      <workItem from="1573062924588" duration="190000" />
+      <workItem from="1573063191698" duration="3528000" />
+      <workItem from="1573179154383" duration="3675000" />
     </task>
     <servers />
   </component>
@@ -104,5 +138,8 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>
