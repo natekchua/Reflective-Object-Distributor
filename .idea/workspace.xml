@@ -2,35 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2487b3aa-3655-4bd1-b3c4-96d9f8cf3f48" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/LICENSE.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/README.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/jdom-2.0.6-contrib.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/jdom-2.0.6-javadoc.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/jdom-2.0.6-junit.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/jdom-2.0.6-sources.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/jdom-2.0.6.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lib/jaxen-1.1.6.LICENSE.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lib/jaxen-1.1.6.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lib/xalan/serializer-2.7.2.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lib/xalan/xalan-2.7.2.LICENSE" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lib/xalan/xalan-2.7.2.NOTICE" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lib/xalan/xalan-2.7.2.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lib/xerces.2.11.LICENSE" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lib/xerces.2.11.NOTICE" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lib/xercesImpl.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lib/xml-apis.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Client.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Server.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/A3.iml" beforeDir="false" afterPath="$PROJECT_DIR$/A3.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/A3/ObjectCreator.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/ObjectCreator.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/A3/ObjectE.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/A3/ObjectTypes/ObjectB.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/ObjectTypes/ObjectB.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/A3/ObjectTypes/ObjectC.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/ObjectTypes/ObjectC.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/A3/ObjectTypes/ObjectD.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/ObjectTypes/ObjectD.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/A3/Sender.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ObjectCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ObjectCreator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Serializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ObjectTypes/ObjectA.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ObjectTypes/ObjectA.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ObjectTypes/ObjectC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ObjectTypes/ObjectC.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ObjectTypes/ObjectD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ObjectTypes/ObjectD.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ObjectTypes/ObjectE.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ObjectTypes/ObjectE.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Serializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Serializer.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -119,7 +97,10 @@
       <workItem from="1572897247188" duration="1352000" />
       <workItem from="1573062924588" duration="190000" />
       <workItem from="1573063191698" duration="3528000" />
-      <workItem from="1573179154383" duration="3675000" />
+      <workItem from="1573179154383" duration="3833000" />
+      <workItem from="1573263993761" duration="1414000" />
+      <workItem from="1573417043268" duration="1199000" />
+      <workItem from="1573451400637" duration="2325000" />
     </task>
     <servers />
   </component>

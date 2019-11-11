@@ -7,11 +7,7 @@ an object that contains an instance of one of Java's collection classes to refer
 public class ObjectE {
     private ArrayList<ObjectA> objectsArray;
 
-    public ObjectE(){
-        this.objectsArray = new ArrayList<>();
-    }
-
-    public ArrayList<ObjectA> getObjectsArray() {
-        return objectsArray;
+    public ObjectE(ArrayList objectsArray){
+        this.objectsArray = objectsArray;
     }
 }

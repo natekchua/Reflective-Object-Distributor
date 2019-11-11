@@ -55,17 +55,15 @@ public class ObjectCreator {
     user creates a simple object with only primitives for instance variables.
      */
     private ObjectA createObjectA() {
-        ObjectA primitiveObject = new ObjectA();
-
         System.out.println("** CREATING SIMPLE OBJECT WITH PRIMITIVE FIELDS ONLY **");
         System.out.print("Enter int value: ");
-        primitiveObject.setA(input.nextInt());
+        int a = input.nextInt();
         System.out.print("Enter double value: ");
-        primitiveObject.setB(input.nextDouble());
+        double b = input.nextDouble();
         System.out.print("Enter float value: ");
-        primitiveObject.setC(input.nextFloat());
+        float c = input.nextFloat();
 
-        return primitiveObject;
+        return new ObjectA(a, b, c);
     }
 
     /*
@@ -86,15 +84,13 @@ public class ObjectCreator {
 
         System.out.print("Set length of array: ");
         int length = input.nextInt();
-        ObjectC primitiveArrayObject = new ObjectC(length);
+        int [] arr = new int [length];
 
-        int[] arr = primitiveArrayObject.getArray();
         for(int i = 0; i < arr.length; i++){
             System.out.print("Set value for element at index" + "[" + i + "]: ");
             arr[i] = input.nextInt();
         }
-        primitiveArrayObject.setArray(arr);
-        return primitiveArrayObject;
+        return new ObjectC(arr);
     }
 
     /*
@@ -105,15 +101,13 @@ public class ObjectCreator {
 
         System.out.print("Set length of array: ");
         int length = input.nextInt();
-        ObjectD referenceArrayObject = new ObjectD(length);
-        ObjectA [] arr = referenceArrayObject.getArray();
+        ObjectA [] arr = new ObjectA[length];
 
         for(int i = 0; i < arr.length; i++){
             System.out.print("Set value for element at index" + "[" + i + "]: ");
             arr[i] = createObjectA();
         }
-        referenceArrayObject.setArray(arr);
-        return referenceArrayObject;
+        return new ObjectD(arr);
     }
 
     /*
@@ -121,10 +115,9 @@ public class ObjectCreator {
     refer to other objects. ObjectTypes.ObjectE uses ArrayList.
      */
     private ObjectE createObjectE() {
-        ObjectE collectionObject = new ObjectE();
         System.out.println("** CREATING OBJECT WITH JAVA COLLECTION **");
 
-        ArrayList<ObjectA> arr = collectionObject.getObjectsArray();
+        ArrayList<ObjectA> arr = new ArrayList<>();
         System.out.println("Add an object into Java Collection Structure? (y/n): ");
         input.nextLine();
         String choice = input.nextLine();
@@ -140,8 +133,7 @@ public class ObjectCreator {
                     proceed = false;
             }
         }
-
-        return collectionObject;
+        return new ObjectE(arr);
     }
 
     private void displayMenu() {
