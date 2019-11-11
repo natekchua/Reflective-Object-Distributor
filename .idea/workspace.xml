@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2487b3aa-3655-4bd1-b3c4-96d9f8cf3f48" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Sender.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ObjectCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ObjectCreator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ObjectTypes/ObjectA.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ObjectTypes/ObjectA.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ObjectTypes/ObjectC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ObjectTypes/ObjectC.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ObjectTypes/ObjectD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ObjectTypes/ObjectD.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ObjectTypes/ObjectE.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ObjectTypes/ObjectE.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Serializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Serializer.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -100,7 +97,7 @@
       <workItem from="1573179154383" duration="3833000" />
       <workItem from="1573263993761" duration="1414000" />
       <workItem from="1573417043268" duration="1199000" />
-      <workItem from="1573451400637" duration="2325000" />
+      <workItem from="1573451400637" duration="9135000" />
     </task>
     <servers />
   </component>

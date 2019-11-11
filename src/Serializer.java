@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -36,28 +37,106 @@ public class Serializer implements Serializable {
     }
 
     private void serializeObject(Object obj) throws IllegalAccessException {
-        // todo: get list of objects fields
         Class c = obj.getClass();
         Field[] fields = c.getDeclaredFields();
-        Element elem = new Element("object");
-        elem.setAttribute(new Attribute("class", c.getSimpleName()));
-        elem.setAttribute(new Attribute("id", getID(obj).toString()));
 
+        // Object Tag
+        Element objectTag = createObjectTag(obj);
+
+        // Field Tag
         for(Field field : fields){
             field.setAccessible(true);
-            Element fieldElem = new Element("Field");
-            fieldElem.setAttribute(new Attribute("name", field.getName()));
-            fieldElem.setAttribute(new Attribute("declaringClass", field.getDeclaringClass().getSimpleName()));
+            Element fieldTag = createFieldTag(field);
 
             Object value = field.get(obj);
             Class type = field.getType();
             if(type.isPrimitive()){
-                Element valElem = new Element("value");
-                valElem.setText(value.toString());
-                fieldElem.addContent(valElem);
+                Element valueTag = createValueTag(obj);
+                fieldTag.addContent(valueTag);
+            }else{
+                Element referenceTag = createReferenceTag(value);
+                fieldTag.addContent(referenceTag);
+                serializeObject(value);
             }
         }
-        // todo: get value for each field (check if array)
+    }
+
+    private Element serializeArray(Object obj) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        Class c = obj.getClass();
+
+        // Object Tag
+//        Element objectTag = new Element("object");
+//        objectTag.setAttribute(new Attribute("class", c.getSimpleName()));
+//        objectTag.setAttribute(new Attribute("id", getID(obj).toString()));
+
+        // Additional Length attribute for array objects
+//        Method m = c.getDeclaredMethod("size", (Class<?>) null);
+//        Integer length = (Integer) m.invoke(obj, (Object) null);
+//        objectTag.setAttribute(new Attribute("length", length.toString()));
+
+        Element arrayObjectTag = createArrayTag(obj);
+
+        Class compType = c.getComponentType();
+        for(int i = 0; i < Array.getLength(obj); i++){
+            Object value = Array.get(obj, i);
+            if(value == null) {
+                Element nullValue = createValueTag(null);
+                arrayObjectTag.addContent(nullValue);
+            }
+            else if(compType.isPrimitive()){
+                Element valueTag = createValueTag(value);
+                arrayObjectTag.addContent(valueTag);
+            }
+            else{
+                Element referenceTag = createReferenceTag(value);
+                arrayObjectTag.addContent(referenceTag);
+                serializeObject(value);
+            }
+
+        }
+        return arrayObjectTag;
+    }
+
+    private Element createObjectTag(Object obj){
+        Class c = obj.getClass();
+        Element objectTag = new Element("object");
+        objectTag.setAttribute(new Attribute("class", c.getSimpleName()));
+        objectTag.setAttribute(new Attribute("id", getID(obj).toString()));
+        return objectTag;
+    }
+
+    private Element createFieldTag(Field field){
+        Element fieldTag = new Element("field");
+        fieldTag.setAttribute(new Attribute("name", field.getName()));
+        fieldTag.setAttribute(new Attribute("declaringClass", field.getDeclaringClass().getSimpleName()));
+        return fieldTag;
+    }
+
+    private Element createValueTag(Object obj){
+        Element valueTag = new Element("value");
+        if(obj == null)
+            valueTag.setText("null");
+        else
+            valueTag.setText(obj.toString());
+        return valueTag;
+    }
+
+    private Element createReferenceTag(Object value){
+        Element referenceTag = new Element("reference");
+        referenceTag.setText(getID(value).toString());
+        return referenceTag;
+    }
+
+    private Element createArrayTag(Object obj) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        Class c = obj.getClass();
+        Element objectTag = new Element("object");
+        objectTag.setAttribute(new Attribute("class", c.getSimpleName()));
+        objectTag.setAttribute(new Attribute("id", getID(obj).toString()));
+
+        Method m = c.getDeclaredMethod("size", (Class<?>) null);
+        Integer length = (Integer) m.invoke(obj, (Object) null);
+        objectTag.setAttribute(new Attribute("length", length.toString()));
+        return objectTag;
     }
 
     private Integer getID(Object obj) {
@@ -65,6 +144,6 @@ public class Serializer implements Serializable {
             map.put(obj, id);
             id++;
         }
-        return 0;
+        return id;
     }
 }

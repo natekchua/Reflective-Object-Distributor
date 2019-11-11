@@ -11,15 +11,15 @@ public class ObjectCreator {
     private Scanner input = new Scanner(System.in);
     private ArrayList <Object> objects = new ArrayList<>(); //stores objects created by the user.
 
-    public static void main(String[] args) {
-        ObjectCreator program = new ObjectCreator();
-        program.runMenu();
-    }
+//    public static void main(String[] args) {
+//        ObjectCreator program = new ObjectCreator();
+//        program.runMenu();
+//    }
 
     /*
     method to handle user interaction for creating objects.
      */
-    public void runMenu(){
+    public ArrayList<Object> createObjectsMenu(){
         boolean proceed = true;
         while(proceed) {
             displayMenu();
@@ -47,8 +47,8 @@ public class ObjectCreator {
                 default:
                     System.out.println("Invalid choice. Please try again.\n");
             }
-            //todo: pass in set of objects to serialize
         }
+        return objects;
     }
 
     /*
