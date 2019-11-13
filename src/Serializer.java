@@ -1,12 +1,11 @@
 import org.jdom2.Attribute;
 import org.jdom2.Document;
 import org.jdom2.Element;
+import org.jdom2.output.Format;
+import org.jdom2.output.XMLOutputter;
 import org.w3c.dom.Attr;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import java.io.*;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -16,33 +15,38 @@ import java.util.List;
 
 public class Serializer implements Serializable {
 
-    private Document doc;
     private IdentityHashMap<Object, Integer> map = new IdentityHashMap<>();
     private int id = 0;
 
-    public Document serialize(Object obj) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        doc = new Document();
-        doc.setRootElement(new Element("serialized"));
-
+    public Document serialize(Object obj) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, IOException {
+        Element serializedTag = new Element("serialized");
+        Document doc = new Document(serializedTag);
         Class c = obj.getClass();
-        Method m = c.getDeclaredMethod("size", (Class<?>) null);
-        Integer size = (Integer) m.invoke(obj, (Object) null);
-        for(int i = 0; i < size; i++){
-            Class<List> arrList = List.class;
-            Method get = arrList.getDeclaredMethod("get", int.class);
-            Object element = get.invoke(obj, i);
-            serializeObject(element);
+
+        if(c.isArray())
+            serializedTag.addContent(serializeArray(obj));
+        else
+            serializedTag.addContent(serializeObject(obj));
+
+        try{
+            new XMLOutputter().output(doc, System.out);
+            XMLOutputter xml = new XMLOutputter();
+            Format format = Format.getPrettyFormat();
+            xml.setFormat(format);
+            xml.output(doc, new FileWriter("serialized.xml"));
+        }catch(IOException e){
+            e.printStackTrace();
         }
         return doc;    //returns JDOM document
     }
 
-    private void serializeObject(Object obj) throws IllegalAccessException {
+    private Element serializeObject(Object obj) throws IllegalAccessException {
         Class c = obj.getClass();
         Field[] fields = c.getDeclaredFields();
-
         // Object Tag
         Element objectTag = createObjectTag(obj);
 
+//        Element root = objectTag.getParentElement();
         // Field Tag
         for(Field field : fields){
             field.setAccessible(true);
@@ -50,29 +54,22 @@ public class Serializer implements Serializable {
 
             Object value = field.get(obj);
             Class type = field.getType();
+
             if(type.isPrimitive()){
-                Element valueTag = createValueTag(obj);
+                Element valueTag = createValueTag(value);
                 fieldTag.addContent(valueTag);
             }else{
                 Element referenceTag = createReferenceTag(value);
                 fieldTag.addContent(referenceTag);
                 serializeObject(value);
             }
+            objectTag.addContent(fieldTag);
         }
+        return objectTag;
     }
 
     private Element serializeArray(Object obj) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         Class c = obj.getClass();
-
-        // Object Tag
-//        Element objectTag = new Element("object");
-//        objectTag.setAttribute(new Attribute("class", c.getSimpleName()));
-//        objectTag.setAttribute(new Attribute("id", getID(obj).toString()));
-
-        // Additional Length attribute for array objects
-//        Method m = c.getDeclaredMethod("size", (Class<?>) null);
-//        Integer length = (Integer) m.invoke(obj, (Object) null);
-//        objectTag.setAttribute(new Attribute("length", length.toString()));
 
         Element arrayObjectTag = createArrayTag(obj);
 
@@ -97,6 +94,9 @@ public class Serializer implements Serializable {
         return arrayObjectTag;
     }
 
+    /*
+
+     */
     private Element createObjectTag(Object obj){
         Class c = obj.getClass();
         Element objectTag = new Element("object");
@@ -105,6 +105,9 @@ public class Serializer implements Serializable {
         return objectTag;
     }
 
+    /*
+
+     */
     private Element createFieldTag(Field field){
         Element fieldTag = new Element("field");
         fieldTag.setAttribute(new Attribute("name", field.getName()));
@@ -112,6 +115,9 @@ public class Serializer implements Serializable {
         return fieldTag;
     }
 
+    /*
+
+     */
     private Element createValueTag(Object obj){
         Element valueTag = new Element("value");
         if(obj == null)
@@ -121,29 +127,41 @@ public class Serializer implements Serializable {
         return valueTag;
     }
 
+    /*
+
+     */
     private Element createReferenceTag(Object value){
         Element referenceTag = new Element("reference");
         referenceTag.setText(getID(value).toString());
         return referenceTag;
     }
 
+    /*
+
+     */
     private Element createArrayTag(Object obj) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         Class c = obj.getClass();
         Element objectTag = new Element("object");
         objectTag.setAttribute(new Attribute("class", c.getSimpleName()));
         objectTag.setAttribute(new Attribute("id", getID(obj).toString()));
 
-        Method m = c.getDeclaredMethod("size", (Class<?>) null);
+        Method m = c.getDeclaredMethod("length", (Class<?>) null);
         Integer length = (Integer) m.invoke(obj, (Object) null);
         objectTag.setAttribute(new Attribute("length", length.toString()));
         return objectTag;
     }
 
+    /*
+
+     */
     private Integer getID(Object obj) {
         if (!map.containsKey(obj)) {
             map.put(obj, id);
             id++;
         }
+        else
+            id = map.get(obj);
+
         return id;
     }
 }

@@ -11,11 +11,6 @@ public class ObjectCreator {
     private Scanner input = new Scanner(System.in);
     private ArrayList <Object> objects = new ArrayList<>(); //stores objects created by the user.
 
-//    public static void main(String[] args) {
-//        ObjectCreator program = new ObjectCreator();
-//        program.runMenu();
-//    }
-
     /*
     method to handle user interaction for creating objects.
      */

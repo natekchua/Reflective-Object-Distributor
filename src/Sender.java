@@ -1,10 +1,7 @@
 import org.jdom2.Document;
 import org.jdom2.output.XMLOutputter;
 
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -16,23 +13,33 @@ public class Sender {
         Serializer serializer = new Serializer();
         Scanner input = new Scanner(System.in);
 
-        System.out.println("Host: ");
+        System.out.print("Host: ");
         String host = input.nextLine();
-        System.out.println("Port: ");
+        System.out.print("Port: ");
         int port = input.nextInt();
 
         ArrayList<Object> objects = objectCreator.createObjectsMenu();
         for(Object object : objects){
             Document doc = serializer.serialize(object);
 
-            Socket socket = new Socket(host, port);
-            DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream());
+//            Socket socket = new Socket(host, port);
+//            DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream());
+
             System.out.println("Sending document to Receiver.");
-            ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
-            new XMLOutputter().output(doc, byteOut);
-            dataOut.write(byteOut.toByteArray());
-            dataOut.close();
-            socket.close();
+//            ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
+//            new XMLOutputter().output(doc, byteOut);
+//            dataOut.write(byteOut.toByteArray());
+//            dataOut.close();
+//            socket.close();
+            try{
+                Socket socket = new Socket(host, port);
+                ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
+                outputStream.writeObject(doc);
+                outputStream.flush();
+                socket.close();
+            }catch(IOException e){
+                e.printStackTrace();
+            }
         }
     }
 }
