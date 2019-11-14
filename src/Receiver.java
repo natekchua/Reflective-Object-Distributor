@@ -1,10 +1,9 @@
 import org.jdom2.Document;
+import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
-import org.jdom2.output.Format;
-import org.jdom2.output.XMLOutputter;
 
-import java.io.FileWriter;
-import java.net.InetAddress;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
@@ -14,22 +13,25 @@ public class Receiver {
     private static Scanner scanner = new Scanner(System.in);
     private static ObjectInspector visualizer = new ObjectInspector();
 
-    public static void main(String[] args) throws Exception {
-        InetAddress address = InetAddress.getLocalHost();
-        System.out.println("Server: " + address.getHostAddress());
+    public static void main(String[] args) {
+        try{
+            System.out.print("Please Enter Server Port: ");
+            int port = scanner.nextInt();
 
-        System.out.print("Please enter desired port number: ");
-        int port = scanner.nextInt();
+            System.out.println("Creating server socket...");
+            ServerSocket serverSocket = new ServerSocket(port);
 
-        System.out.println("Creating server socket...");
-        ServerSocket serverSocket = new ServerSocket(port, 0, address);
+            Socket socket = serverSocket.accept();
+            System.out.println("Successfully received document from Sender.");
+            ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
+            Document doc = (Document) inputStream.readObject();
 
-        Socket socket = serverSocket.accept();
-        System.out.println("Received document from Sender");
+            //todo: deserialize document
 
-        SAXBuilder builder = new SAXBuilder();
-        Document document = builder.build(socket.getInputStream());
+            socket.close();
+        }catch(IOException | ClassNotFoundException e){
+            e.printStackTrace();
+        }
 
-        //todo: deserialize document
     }
 }

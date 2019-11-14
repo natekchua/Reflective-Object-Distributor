@@ -1,44 +1,46 @@
 import org.jdom2.Document;
+import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
 import java.io.*;
-import java.lang.reflect.InvocationTargetException;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Sender {
-    public static void main(String[] args) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, IOException {
+    public static void main(String[] args){
         ObjectCreator objectCreator = new ObjectCreator();
         Serializer serializer = new Serializer();
         Scanner input = new Scanner(System.in);
 
-        System.out.print("Host: ");
+        System.out.print("Enter Server Host: ");
         String host = input.nextLine();
-        System.out.print("Port: ");
+        System.out.print("Enter Server Port: ");
         int port = input.nextInt();
 
         ArrayList<Object> objects = objectCreator.createObjectsMenu();
-       // for(Object object : objects){
+
+        try{
+            Socket socket = new Socket(host, port);
+
+            System.out.println("\nSerializing Objects into a document...");
             Document doc = serializer.serialize(objects);
+            new XMLOutputter().output(doc, System.out);
+            XMLOutputter xml = new XMLOutputter();
+            Format format = Format.getPrettyFormat();
+            xml.setFormat(format);
+            xml.output(doc, new FileWriter("file.xml"));
+            System.out.println("Serialization Successful.");
 
-//            Socket socket = new Socket(host, port);
-//            DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream());
+            System.out.println("\nSending Document to Receiver...");
+            ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
+            outputStream.writeObject(doc);
+            outputStream.flush();
+            System.out.println("Document Successfully Sent.");
 
-            System.out.println("Sending document to Receiver.");
-//            ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
-//            new XMLOutputter().output(doc, byteOut);
-//            dataOut.write(byteOut.toByteArray());
-//            dataOut.close();
-//            socket.close();
-            try{
-                Socket socket = new Socket(host, port);
-                ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
-                outputStream.writeObject(doc);
-                outputStream.flush();
-                socket.close();
-            }catch(IOException e){
-                e.printStackTrace();
-            }
+            socket.close();
+        }catch(IOException | IllegalAccessException e){
+            e.printStackTrace();
         }
     }
+}
