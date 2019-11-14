@@ -19,8 +19,8 @@ public class Sender {
         int port = input.nextInt();
 
         ArrayList<Object> objects = objectCreator.createObjectsMenu();
-        for(Object object : objects){
-            Document doc = serializer.serialize(object);
+       // for(Object object : objects){
+            Document doc = serializer.serialize(objects);
 
 //            Socket socket = new Socket(host, port);
 //            DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream());
@@ -42,4 +42,3 @@ public class Sender {
             }
         }
     }
-}

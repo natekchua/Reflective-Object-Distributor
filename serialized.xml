@@ -1,14 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <serialized>
-  <object class="ObjectA" id="1">
+  <object class="[LObjectTypes.ObjectA;" id="2" length="3">
+    <Reference>2</Reference>
+    <Reference>3</Reference>
+    <Reference>4</Reference>
+  </object>
+  <object class="ObjectA" id="3">
     <field name="a" declaringClass="ObjectA">
       <value>1</value>
     </field>
     <field name="b" declaringClass="ObjectA">
-      <value>1.0</value>
+      <value>2.0</value>
     </field>
     <field name="c" declaringClass="ObjectA">
-      <value>1.0</value>
+      <value>3.0</value>
     </field>
+  </object>
+  <object class="ObjectA" id="4">
+    <field name="a" declaringClass="ObjectA">
+      <value>1</value>
+    </field>
+    <field name="b" declaringClass="ObjectA">
+      <value>2.0</value>
+    </field>
+    <field name="c" declaringClass="ObjectA">
+      <value>3.0</value>
+    </field>
+  </object>
+  <object class="ObjectA" id="5">
+    <field name="a" declaringClass="ObjectA">
+      <value>1</value>
+    </field>
+    <field name="b" declaringClass="ObjectA">
+      <value>2.0</value>
+    </field>
+    <field name="c" declaringClass="ObjectA">
+      <value>3.0</value>
+    </field>
+  </object>
+  <object class="ObjectD" id="1">
+    <field name="array" declaringClass="ObjectD" />
   </object>
 </serialized>

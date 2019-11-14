@@ -2,16 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2487b3aa-3655-4bd1-b3c4-96d9f8cf3f48" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/serialized.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ObjectInspector.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/A3/ObjectCreator.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/ObjectCreator.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/A3/ObjectTypes/ObjectA.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/ObjectTypes/ObjectA.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/A3/ObjectTypes/ObjectC.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/ObjectTypes/ObjectC.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/A3/ObjectTypes/ObjectD.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/ObjectTypes/ObjectD.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/A3/Receiver.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/Receiver.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/A3/Serializer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/Serializer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Receiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Receiver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/serialized.xml" beforeDir="false" afterPath="$PROJECT_DIR$/serialized.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Sender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sender.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Serializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Serializer.java" afterDir="false" />
     </list>
@@ -42,6 +34,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="extract.method.default.visibility" value="private" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
@@ -124,7 +117,8 @@
       <workItem from="1573451400637" duration="9294000" />
       <workItem from="1573509970803" duration="6542000" />
       <workItem from="1573605100388" duration="209000" />
-      <workItem from="1573605327254" duration="9674000" />
+      <workItem from="1573605327254" duration="9808000" />
+      <workItem from="1573682225436" duration="9377000" />
     </task>
     <servers />
   </component>
