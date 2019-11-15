@@ -2,8 +2,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.IdentityHashMap;
+import java.util.List;
 
 import org.jdom2.*;
 import org.jdom2.output.Format;
@@ -18,14 +18,14 @@ public class Serializer {
     /*
 
      */
-    public Document serialize(ArrayList<Object> objects) throws IllegalAccessException {
+    public Document serialize(List<Object> objects) throws IllegalAccessException {
 
         Element serializedTag = new Element("serialized");  //Root element
         Document doc = new Document(serializedTag);
 
         for(Object object : objects) {
-            Element serializedObject = serializeObject(object, serializedTag, getID(object));
-            serializedTag.addContent(serializedObject);
+        Element serializedObject = serializeObject(object, serializedTag, getID(object));
+        serializedTag.addContent(serializedObject);
         }
         try{
             new XMLOutputter().output(doc, System.out);
@@ -37,6 +37,7 @@ public class Serializer {
         catch(IOException e){
             e.printStackTrace();
         }
+
         return doc;
     }
 

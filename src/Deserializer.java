@@ -19,7 +19,7 @@ public class Deserializer {
         Element root = doc.getRootElement();
         List<Element> objects = root.getChildren();
 
-        // Recreate Object Instances
+        // Recreate uninitialized Object Instances
         for(Element object : objects){
             int id = Integer.parseInt(object.getAttributeValue("id"));
             String cName = object.getAttributeValue("class");
@@ -34,7 +34,29 @@ public class Deserializer {
             List<Element> fields = object.getChildren();
             setFieldValues(objInstance, c, fields);
         }
-        return map.get(0);
+        return map.get(1);
+    }
+
+    /*
+
+     */
+    private void instantiateObject(Element object, int id, String cName) {
+        Object objInstance = null;
+        try{
+            Class c = Class.forName(cName);
+            if(!c.isArray()){
+                Constructor constructor = c.getDeclaredConstructor(null);
+                constructor.setAccessible(true);
+                objInstance = constructor.newInstance(null);
+            }else{
+                int length = Integer.parseInt(object.getAttributeValue("length"));
+                Class compType = c.getComponentType();
+                objInstance = Array.newInstance(compType, length);
+            }
+            map.put(id, objInstance);
+        }catch(ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e){
+            e.printStackTrace();
+        }
     }
 
     /*
@@ -47,15 +69,16 @@ public class Deserializer {
                     String declaringClassName = field.getAttributeValue("declaringClass");
                     Class declaringClass = Class.forName(declaringClassName);
                     Attribute fName = field.getAttribute("name");
-                    Field f = c.getDeclaredField(fName.getName());
+                    Field f = c.getDeclaredField(fName.getValue());
                     f.setAccessible(true);
 
                     Element value = field.getChildren().get(0);
                     Object fValue = getFieldValue(value, declaringClass);
-                    f.set(objInstance, fValue);
+                    if(fValue != null)
+                        f.set(objInstance, fValue);
                 }
             }else{
-                Class compType = objInstance.getClass().getComponentType();
+           //     Class compType = objInstance.getClass().getComponentType();
                 for(Element field : fields){
                     String fContent = field.getText();
                     if(field.getText().equals("null"))
@@ -96,28 +119,4 @@ public class Deserializer {
         }
         return fValue;
     }
-
-
-    /*
-
-     */
-    private void instantiateObject(Element object, int id, String cName) {
-        Object objInstance = null;
-        try{
-            Class c = Class.forName(cName);
-            if(!c.isArray()){
-                Constructor constructor = c.getDeclaredConstructor(null);
-                constructor.setAccessible(true);
-                objInstance = constructor.newInstance(null);
-            }else{
-                int length = Integer.parseInt(object.getAttributeValue("length"));
-                Class compType = c.getComponentType();
-                objInstance = Array.newInstance(compType, length);
-            }
-            map.put(id, objInstance);
-        }catch(ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e){
-            e.printStackTrace();
-        }
-    }
-
 }

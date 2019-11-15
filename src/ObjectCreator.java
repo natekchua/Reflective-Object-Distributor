@@ -1,9 +1,3 @@
-import ObjectTypes.*;
-import org.jdom2.Document;
-import org.jdom2.output.Format;
-import org.jdom2.output.XMLOutputter;
-
-import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -107,7 +101,7 @@ public class ObjectCreator {
 
     /*
     user creates an object that uses an instance of one of Java's collection classes to
-    refer to other objects. ObjectTypes.ObjectE uses ArrayList.
+    refer to other objects. ObjectE uses ArrayList.
      */
     private ObjectE createObjectE() {
         System.out.println("** CREATING OBJECT WITH JAVA COLLECTION **");

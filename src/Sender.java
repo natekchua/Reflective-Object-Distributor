@@ -13,15 +13,15 @@ public class Sender {
         Serializer serializer = new Serializer();
         Scanner input = new Scanner(System.in);
 
-        System.out.print("Enter Server Host: ");
-        String host = input.nextLine();
-        System.out.print("Enter Server Port: ");
-        int port = input.nextInt();
+//        System.out.print("Enter Server Host: ");
+//        String host = input.nextLine();
+//        System.out.print("Enter Server Port: ");
+//        int port = input.nextInt();
 
         ArrayList<Object> objects = objectCreator.createObjectsMenu();
 
         try{
-            Socket socket = new Socket(host, port);
+            Socket socket = new Socket("localhost", 4444);
 
             System.out.println("\nSerializing Objects into a document...");
             Document doc = serializer.serialize(objects);
