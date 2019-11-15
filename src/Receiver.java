@@ -1,6 +1,4 @@
 import org.jdom2.Document;
-import org.jdom2.JDOMException;
-import org.jdom2.input.SAXBuilder;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -26,7 +24,8 @@ public class Receiver {
             ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
             Document doc = (Document) inputStream.readObject();
 
-            //todo: deserialize document
+            Deserializer deserializer = new Deserializer();
+            deserializer.deserialize(doc);
 
             socket.close();
         }catch(IOException | ClassNotFoundException e){

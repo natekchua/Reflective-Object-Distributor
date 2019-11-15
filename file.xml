@@ -2,13 +2,13 @@
 <serialized>
   <object class="ObjectA" id="1">
     <field name="a" declaringClass="ObjectA">
-      <value>1</value>
+      <value>6</value>
     </field>
     <field name="b" declaringClass="ObjectA">
-      <value>2.0</value>
+      <value>69.0</value>
     </field>
     <field name="c" declaringClass="ObjectA">
-      <value>3.0</value>
+      <value>4.0</value>
     </field>
   </object>
 </serialized>
