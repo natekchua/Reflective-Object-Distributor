@@ -2,19 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2487b3aa-3655-4bd1-b3c4-96d9f8cf3f48" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/ElementTags.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/file.xml" beforeDir="false" afterPath="$PROJECT_DIR$/file.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/A3/Deserializer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/Deserializer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/A3/ObjectInspector.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/ObjectInspector.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/A3/Receiver.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/Receiver.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/A3/Sender.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/Sender.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/A3/Serializer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/Serializer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/serialized.xml" beforeDir="false" afterPath="$PROJECT_DIR$/serialized.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Deserializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Deserializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ObjectInspector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ObjectInspector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Receiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Receiver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sender.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Serializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Serializer.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -129,7 +116,7 @@
       <workItem from="1573605100388" duration="209000" />
       <workItem from="1573605327254" duration="9808000" />
       <workItem from="1573682225436" duration="13425000" />
-      <workItem from="1573710943516" duration="48384000" />
+      <workItem from="1573710943516" duration="48824000" />
     </task>
     <servers />
   </component>

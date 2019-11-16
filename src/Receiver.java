@@ -25,7 +25,6 @@ public class Receiver {
             System.out.println("Deserialization Successful.\n");
 
             visualizer.inspect(o, true);
-
             socket.close();
 
         }catch(IOException | ClassNotFoundException e){

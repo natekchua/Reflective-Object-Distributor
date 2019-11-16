@@ -18,7 +18,9 @@ public class Serializer implements Serializable {
     private Document doc;
 
     /*
-
+    This method serializes the passed-in object into an xml element.
+    @param Object object
+    @return Document doc
      */
     public Document serialize(Object object) {
 
@@ -36,55 +38,57 @@ public class Serializer implements Serializable {
         catch(IOException e){
             e.printStackTrace();
         }
-
         return doc;
     }
 
     /*
-
+       This method ensures the xml format of all serialized objects
+       @param Object obj
      */
     private void serializeObject(Object obj) {
         Element objectTag = eTags.createObjectTag(obj, getID(obj));
         Class c = obj.getClass();
         Element root = doc.getRootElement();
-        try{
-            if (c.isArray())
-                objectTag = serializeArray(obj);
-            else
-                serializeFields(obj, objectTag, c);
+        if (c.isArray())
+            objectTag = serializeArray(obj);
+        else
+            serializeFields(obj, objectTag, c);
 
-            root.addContent(objectTag);
-        }catch(IllegalAccessException e){
-            e.printStackTrace();
-        }
+        root.addContent(objectTag);
     }
 
     /*
-
+       serializes field tags depending on the type of the field and its value.
+       @param Object obj, Element objectTag, Class c
      */
-    private void serializeFields(Object obj, Element objectTag, Class c) throws IllegalAccessException {
-        Field [] fields = c.getDeclaredFields();
-        for (Field field : fields) {
-            field.setAccessible(true);
+    private void serializeFields(Object obj, Element objectTag, Class c) {
+       try{
+           Field [] fields = c.getDeclaredFields();
+           for (Field field : fields) {
+               field.setAccessible(true);
+               Element fieldTag = eTags.createFieldTag(field);
+               Object value = field.get(obj);
 
-            Element fieldTag = eTags.createFieldTag(field);
+               if (field.getType().isPrimitive()) {
+                   Element element = eTags.createValueTag(value);
+                   fieldTag.addContent(element);
+               } else {
+                   Element referenceTag = eTags.createReferenceTag(getID(value).toString());
+                   fieldTag.addContent(referenceTag);
+                   serializeObject(value);
+               }
+               objectTag.addContent(fieldTag);
+           }
+       }catch(IllegalAccessException e){
+           e.printStackTrace();
+       }
 
-            Object value = field.get(obj);
-
-            if (field.getType().isPrimitive()) {
-                Element element = eTags.createValueTag(value);
-                fieldTag.addContent(element);
-            } else {
-                Element referenceTag = eTags.createReferenceTag(getID(value).toString());
-                fieldTag.addContent(referenceTag);
-                serializeObject(value);
-            }
-            objectTag.addContent(fieldTag);
-        }
     }
 
     /*
-
+     handles array serialization. this includes array elements of: null, primitive, reference
+     @param Object obj
+     @return Element objectTag (array version)
      */
     public Element serializeArray(Object obj) {
         Class c = obj.getClass();
@@ -106,12 +110,11 @@ public class Serializer implements Serializable {
                 serializeObject(arrElement);
             }
         }
-
         return objectTag;
     }
 
     /*
-
+       defines unique ID's for each serialized object element.
      */
     private Integer getID(Object obj) {
         int newID = id;

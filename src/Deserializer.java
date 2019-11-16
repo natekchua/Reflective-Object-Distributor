@@ -9,14 +9,23 @@ public class Deserializer {
 
     private HashMap<Integer, Object> map = new HashMap<>();
 
-    public Object deserialize(Document document) {
-        Element root = document.getRootElement();
+    /*
+     deconstructs passed in XML document to recreate the objects from the XML doc.
+     @param Document doc
+     @Object root object from the map
+     */
+    public Object deserialize(Document doc) {
+        Element root = doc.getRootElement();
         List<Element> objects = root.getChildren();
         instantiateObjects(objects);
         setFieldValues(objects);
         return map.get(0);
     }
 
+    /*
+        creates new instances of the object elements from the xml document
+        @param List<Element> objects
+     */
     private void instantiateObjects(List<Element> objects) {
         Object objInstance;
         try {
@@ -42,7 +51,8 @@ public class Deserializer {
     }
 
     /*
-
+     sets the field values of each new object instance
+     @param List<ELement> fields
      */
     private void setFieldValues(List<Element> fields) {
         for (Element field : fields) {
@@ -58,7 +68,8 @@ public class Deserializer {
     }
 
     /*
-
+     helper method for setFieldValues(). deals with all non-array field types.
+     @param Object objInstance, List<Element> fields
      */
     private void setFields(Object objInstance, List<Element> fields) {
         try{
@@ -89,7 +100,7 @@ public class Deserializer {
     }
 
     /*
-
+    helper method for setFieldValues(). specific to arrays.
      */
     private void setArray(Object objInstance, List<Element> fields) {
         Class compType = objInstance.getClass().getComponentType();
@@ -110,7 +121,9 @@ public class Deserializer {
     }
 
     /*
-
+       returns the field content depending on the class type.
+       @param Class type, Element object
+       @Object oContent
      */
     private Object getFieldValue(Class type, Element object) {
         String oContent = object.getText();
