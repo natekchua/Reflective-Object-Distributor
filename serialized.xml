@@ -7,10 +7,10 @@
       <value>1</value>
     </field>
     <field name="b" declaringClass="ObjectA">
-      <value>2.0</value>
+      <value>1.0</value>
     </field>
     <field name="c" declaringClass="ObjectA">
-      <value>3.0</value>
+      <value>1.0</value>
     </field>
   </object>
   <object class="[Ljava.lang.Object;" id="3" length="10">

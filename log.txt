@@ -1,3 +1,9 @@
+commit a0ca7998c248c903baa60ef8149254bf939e3ab5
+Author: Nathan Chua <nchua235@mtroyal.ca>
+Date:   Fri Nov 15 23:17:03 2019 -0700
+
+    added test classes for serializer and deserializer
+
 commit b580361a87a2a2ed2fe8d3a955aa9a0446b84f14
 Author: Nathan Chua <nchua235@mtroyal.ca>
 Date:   Fri Nov 15 22:52:44 2019 -0700

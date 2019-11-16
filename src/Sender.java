@@ -5,16 +5,21 @@ import org.jdom2.output.XMLOutputter;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Sender {
+
     public static void main(String[] args){
         ObjectCreator objectCreator = new ObjectCreator();
         Serializer serializer = new Serializer();
+        Scanner input = new Scanner(System.in);
 
         ArrayList<Object> objects = objectCreator.createObjectsMenu();
 
         try{
-            Socket socket = new Socket("localhost", 5000);
+            System.out.print("Enter IP Address: ");
+            String ip = input.nextLine();
+            Socket socket = new Socket(ip,5000);
 
             System.out.println("\nSerializing Objects into a document...");
             Document doc = serializer.serialize(objects);

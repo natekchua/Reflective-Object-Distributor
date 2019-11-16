@@ -2,6 +2,7 @@ import org.jdom2.Document;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -11,8 +12,11 @@ public class Receiver {
 
     public static void main(String[] args) {
         try{
+            InetAddress address = InetAddress.getLocalHost();
+            System.out.println("Server at: " + address.getHostAddress());
+
             System.out.println("Waiting to receive document...");
-            ServerSocket serverSocket = new ServerSocket(5000);
+            ServerSocket serverSocket = new ServerSocket(5000, 0, address);
 
             Socket socket = serverSocket.accept();
             System.out.println("Successfully received document from Sender.");
