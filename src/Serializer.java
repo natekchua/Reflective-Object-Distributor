@@ -1,32 +1,31 @@
-import java.io.FileWriter;
-import java.io.IOException;
-import java.lang.reflect.Array;
-import java.lang.reflect.Field;
-import java.util.IdentityHashMap;
-import java.util.List;
-
-import org.jdom2.*;
+import org.jdom2.Document;
+import org.jdom2.Element;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.lang.reflect.Field;
+import java.util.IdentityHashMap;
 
-public class Serializer {
+public class Serializer implements Serializable {
 
-    private IdentityHashMap map = new IdentityHashMap<>();
+    private ElementTags eTags = new ElementTags();
+    private IdentityHashMap<Object, Integer> map = new IdentityHashMap<>();
     private Integer id = 0;
+    private Document doc;
 
     /*
 
      */
-    public Document serialize(List<Object> objects) throws IllegalAccessException {
+    public Document serialize(Object object) {
 
         Element serializedTag = new Element("serialized");  //Root element
-        Document doc = new Document(serializedTag);
+        doc = new Document(serializedTag);
+        serializeObject(object);
 
-        for(Object object : objects) {
-        Element serializedObject = serializeObject(object, serializedTag, getID(object));
-        serializedTag.addContent(serializedObject);
-        }
         try{
             new XMLOutputter().output(doc, System.out);
             XMLOutputter xml = new XMLOutputter();
@@ -44,123 +43,84 @@ public class Serializer {
     /*
 
      */
-    public Element serializeObject(Object obj,Element root, Integer id) throws IllegalAccessException {
-        Element objectTag = createObjectTag(obj);
-
+    private void serializeObject(Object obj) {
+        Element objectTag = eTags.createObjectTag(obj, getID(obj));
         Class c = obj.getClass();
-        Field[] fields = c.getDeclaredFields();
+        Element root = doc.getRootElement();
+        try{
+            if (c.isArray())
+                objectTag = serializeArray(obj);
+            else
+                serializeFields(obj, objectTag, c);
 
-        for(Field field : fields){
+            root.addContent(objectTag);
+        }catch(IllegalAccessException e){
+            e.printStackTrace();
+        }
+    }
+
+    /*
+
+     */
+    private void serializeFields(Object obj, Element objectTag, Class c) throws IllegalAccessException {
+        Field [] fields = c.getDeclaredFields();
+        for (Field field : fields) {
             field.setAccessible(true);
-            Element fieldTag = createFieldTag(field);
-            objectTag.addContent(fieldTag);
 
-            Class type = field.getType();
+            Element fieldTag = eTags.createFieldTag(field);
+
             Object value = field.get(obj);
 
-            if(type.isArray())
-                serializeArray(obj, root, type, value);
-            else if(type.isPrimitive()){
-                Element valueTag = createValueTag(value);
-                fieldTag.addContent(valueTag);
-            }else {
-                id = getID(value);  //reference object ID
-                Element referenceTag = createReferenceTag(value, id);
+            if (field.getType().isPrimitive()) {
+                Element element = eTags.createValueTag(value);
+                fieldTag.addContent(element);
+            } else {
+                Element referenceTag = eTags.createReferenceTag(getID(value).toString());
                 fieldTag.addContent(referenceTag);
-
-                Element refObjectTag = serializeObject(value, root, id);
-                root.addContent(refObjectTag);
+                serializeObject(value);
             }
-        }
-        return objectTag;
-    }
-
-    /*
-
-     */
-    private void serializeArray(Object obj, Element root, Class type, Object value) throws IllegalAccessException {
-        Class arrayType = type.getComponentType();
-        Element arrayTag = createArrayTag(type, value, getID(obj));
-        root.addContent(arrayTag);
-
-        if(arrayType.isPrimitive()) {
-            int length = Array.getLength(value);
-            for (int i = 0; i < length; i++) {
-                Object arrElement = Array.get(value, i);
-                Element valueTag = createValueTag(arrElement);
-                arrayTag.addContent(valueTag);
-            }
-        }
-        else{
-            for (int i = 0; i < Array.getLength(value); i++) {
-                Object refObject = Array.get(value, i);
-                Integer id = getID(refObject);
-                Element referenceTag = createReferenceTag(refObject, id);
-                arrayTag.addContent(referenceTag);
-                root.addContent(serializeObject(refObject, root, id));
-            }
+            objectTag.addContent(fieldTag);
         }
     }
 
     /*
 
      */
-    private Element createObjectTag(Object obj){
+    public Element serializeArray(Object obj) {
         Class c = obj.getClass();
-        Element objectTag = new Element("object");
-        objectTag.setAttribute(new Attribute("class", c.getSimpleName()));
-        objectTag.setAttribute(new Attribute("id", getID(obj).toString()));
+        Class arrayType = c.getComponentType();
+        Element objectTag = eTags.createArrayTag(obj, getID(obj));
+
+        int length = Array.getLength(obj);
+        for (int i = 0; i < length; i++) {
+            Object arrElement = Array.get(obj, i);
+            if (arrayType.isPrimitive()) {
+                Element valueTag = eTags.createValueTag(arrElement);
+                objectTag.addContent(valueTag);
+            }else if(arrElement == null) {
+                Element nullElement = eTags.createValueTag(null);
+                objectTag.addContent(nullElement);
+            } else {
+                Element referenceTag = eTags.createReferenceTag(getID(arrElement).toString());
+                objectTag.addContent(referenceTag);
+                serializeObject(arrElement);
+            }
+        }
+
         return objectTag;
-    }
-    /*
-
-     */
-    public Element createFieldTag(Field field) {
-        Element fieldTag = new Element("field");
-        fieldTag.setAttribute(new Attribute("name", field.getName()));
-        fieldTag.setAttribute(new Attribute("declaringClass", field.getDeclaringClass().getSimpleName()));
-        return fieldTag;
-    }
-
-    /*
-
-     */
-    public Element createArrayTag(Class type, Object value, Integer id) {
-        Element arrayTag = new Element("object");
-        arrayTag.setAttribute(new Attribute("class", type.getName()));
-        arrayTag.setAttribute(new Attribute("id", getID(value).toString()));
-
-        String length = String.valueOf(Array.getLength(value));
-        arrayTag.setAttribute(new Attribute("length", length));
-        return arrayTag;
-    }
-
-    /*
-
-     */
-    public Element createValueTag(Object value) {
-        Element valueTag = new Element("value");
-        valueTag.setText(value.toString());
-        return valueTag;
-    }
-
-    /*
-
-     */
-    public Element createReferenceTag(Object value, Integer id) {
-        Element referenceTag = new Element("Reference");
-        referenceTag.setText(id.toString());
-        return referenceTag;
     }
 
     /*
 
      */
     private Integer getID(Object obj) {
+        int newID = id;
         if (!map.containsKey(obj)) {
-            map.put(obj, id);
+            map.put(obj, newID);
             id++;
+            return newID;
         }
-        return id;
+        else
+            return map.get(obj);
     }
 }

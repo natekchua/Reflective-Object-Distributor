@@ -1,122 +1,126 @@
-import org.jdom2.Attribute;
 import org.jdom2.Document;
 import org.jdom2.Element;
 
-import java.lang.reflect.Array;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.*;
 import java.util.HashMap;
 import java.util.List;
 
 public class Deserializer {
+
     private HashMap<Integer, Object> map = new HashMap<>();
 
-    /*
-
-     */
-    public Object deserialize(Document doc) {
-        Element root = doc.getRootElement();
+    public Object deserialize(Document document) {
+        Element root = document.getRootElement();
         List<Element> objects = root.getChildren();
+        instantiateObjects(objects);
+        setFieldValues(objects);
+        return map.get(0);
+    }
 
-        // Recreate uninitialized Object Instances
-        for(Element object : objects){
-            int id = Integer.parseInt(object.getAttributeValue("id"));
-            String cName = object.getAttributeValue("class");
-            instantiateObject(object, id, cName);
+    private void instantiateObjects(List<Element> objects) {
+        Object objInstance;
+        try {
+            for (Element object : objects) {
+                String className = object.getAttribute("class").getValue();
+                Class c = Class.forName(className);
+
+                if (!c.isArray()) {
+                    Constructor constructor = c.getDeclaredConstructor(null);
+                    constructor.setAccessible(true);
+                    objInstance = constructor.newInstance(null);
+                } else {
+                    int length = Integer.parseInt(object.getAttribute("length").getValue());
+                    Class compType = c.getComponentType();
+                    objInstance = Array.newInstance(compType, length);
+                }
+                Integer id = Integer.parseInt(object.getAttribute("id").getValue());
+                map.put(id, objInstance);
+            }
+        } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
         }
+    }
 
-        // Set values of fields
-        for(Element object : objects){
-            int id = Integer.parseInt(object.getAttributeValue("id"));
-            Object objInstance = map.get(id);
+    /*
+
+     */
+    private void setFieldValues(List<Element> fields) {
+        for (Element field : fields) {
+            Object objInstance = map.get(Integer.parseInt(field.getAttributeValue("id")));
+            List<Element> fieldTags = field.getChildren();
             Class c = objInstance.getClass();
-            List<Element> fields = object.getChildren();
-            setFieldValues(objInstance, c, fields);
-        }
-        return map.get(1);
-    }
 
-    /*
-
-     */
-    private void instantiateObject(Element object, int id, String cName) {
-        Object objInstance = null;
-        try{
-            Class c = Class.forName(cName);
-            if(!c.isArray()){
-                Constructor constructor = c.getDeclaredConstructor(null);
-                constructor.setAccessible(true);
-                objInstance = constructor.newInstance(null);
-            }else{
-                int length = Integer.parseInt(object.getAttributeValue("length"));
-                Class compType = c.getComponentType();
-                objInstance = Array.newInstance(compType, length);
-            }
-            map.put(id, objInstance);
-        }catch(ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e){
-            e.printStackTrace();
+            if (!c.isArray())
+                setFields(objInstance, fieldTags);
+            else
+                setArray(objInstance, fieldTags);
         }
     }
 
     /*
 
      */
-    private void setFieldValues(Object objInstance, Class c, List<Element> fields) {
+    private void setFields(Object objInstance, List<Element> fields) {
         try{
-            if(!c.isArray()){
-                for(Element field : fields){
-                    String declaringClassName = field.getAttributeValue("declaringClass");
-                    Class declaringClass = Class.forName(declaringClassName);
-                    Attribute fName = field.getAttribute("name");
-                    Field f = c.getDeclaredField(fName.getValue());
-                    f.setAccessible(true);
+            for (Element field : fields) {
+                String className = field.getAttributeValue("declaringClass");
+                Class c = Class.forName(className);
 
-                    Element value = field.getChildren().get(0);
-                    Object fValue = getFieldValue(value, declaringClass);
-                    if(fValue != null)
-                        f.set(objInstance, fValue);
-                }
-            }else{
-           //     Class compType = objInstance.getClass().getComponentType();
-                for(Element field : fields){
-                    String fContent = field.getText();
-                    if(field.getText().equals("null"))
-                        Array.set(objInstance, field.indexOf(field), null);
-                    else if(field.getName().equals("value"))
-                        Array.set(objInstance, field.indexOf(field), field);
-                    else if(field.getName().equals("reference")){
-                        Object obj = map.get(fContent);
-                        Array.set(objInstance, field.indexOf(field), obj);
-                    }
+                Field fieldToSet = c.getDeclaredField(field.getAttribute("name").getValue());
+                int modifier = fieldToSet.getModifiers();
+                if (Modifier.isFinal(modifier))
+                    continue;
+
+                fieldToSet.setAccessible(true);
+                Element value = field.getChildren().get(0);
+
+                if (value.getName().equals("value")) {
+                    Class type = fieldToSet.getType();
+                    fieldToSet.set(objInstance, getFieldValue(type, value));
+                } else if (value.getName().equals("reference")) {
+                    Object obj = map.get(Integer.parseInt(value.getText()));
+                    fieldToSet.set(objInstance, obj);
                 }
             }
-        }
-        catch (NoSuchFieldException | ClassNotFoundException | IllegalAccessException e) {
+        } catch (IllegalAccessException | NoSuchFieldException | ClassNotFoundException e) {
             e.printStackTrace();
+        }
+
+    }
+
+    /*
+
+     */
+    private void setArray(Object objInstance, List<Element> fields) {
+        Class compType = objInstance.getClass().getComponentType();
+        for (int i = 0; i < fields.size(); i++) {
+            Element field = fields.get(i);
+            String fContent = field.getText();
+            String fName = field.getName();
+
+            if (fContent.equals("null")) {
+                Array.set(objInstance, i, null);
+            } else if (fName.equals("value")) {
+                Array.set(objInstance, i, getFieldValue(compType, field));
+            } else if (fName.equals("reference")) {
+                Object obj = map.get(Integer.parseInt(fContent));
+                Array.set(objInstance, i, obj);
+            }
         }
     }
 
     /*
 
      */
-    private Object getFieldValue(Element valueTag, Class fClass) {
-        String type = valueTag.getName();
-        String value = valueTag.getValue();
-        Object fValue = null;
-
-        if(type.equals("value")) {
-            if (fClass.equals(int.class))
-                fValue = Integer.parseInt(value);
-            else if (fClass.equals(double.class))
-                fValue = Double.parseDouble(value);
-            else if (fClass.equals(float.class))
-                fValue = Float.parseFloat(value);
-        }
-        else if(type.equals("reference")) {
-            int refID = Integer.parseInt(valueTag.getValue());
-            return map.get(refID);
-        }
-        return fValue;
+    private Object getFieldValue(Class type, Element object) {
+        String oContent = object.getText();
+        if (type.equals(int.class))
+            return Integer.valueOf(oContent);
+        else if (type.equals(double.class))
+            return Double.valueOf(oContent);
+        else if (type.equals(float.class))
+            return Float.valueOf(oContent);
+        else
+            return oContent;
     }
 }

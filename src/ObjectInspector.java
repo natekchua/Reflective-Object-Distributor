@@ -21,7 +21,7 @@ import java.lang.reflect.*;
 
 public class ObjectInspector {
 
-    public static void inspect(Object obj, boolean recursive) {
+    public void inspect(Object obj, boolean recursive) {
         int depth = 0;
         Class c = obj.getClass();
         inspectClass(c, obj, recursive, depth);
@@ -30,7 +30,7 @@ public class ObjectInspector {
     /*
     method to inspect declaring class.
     */
-    public static void inspectClass(Class c, Object obj, boolean recursive, int depth) {
+    public void inspectClass(Class c, Object obj, boolean recursive, int depth) {
         if(!c.isInterface())                                    //make sure c is not an interface to print "CLASS:"
             format(depth,"CLASS: " + c.getSimpleName());    //doesnt make sense to print CLASS name for an interface.
 
@@ -51,7 +51,7 @@ public class ObjectInspector {
     /*
     method to inspect superclass: always fully explores inheritance hierarchy.
     */
-    public static void inspectSuperclass(Class c, Object obj, boolean recursive, int depth) {
+    public void inspectSuperclass(Class c, Object obj, boolean recursive, int depth) {
         if(c.equals(Object.class))
             return;
 
@@ -68,7 +68,7 @@ public class ObjectInspector {
     /*
     method to inspect implemented interface(s): always fully explores inheritance hierarchy.
     */
-    public static void inspectInterfaces(Class c, Object obj, boolean recursive, int depth) {
+    public void inspectInterfaces(Class c, Object obj, boolean recursive, int depth) {
         Class [] iArray = c.getInterfaces();         //array of class c's implementing interfaces
         int indents = depth + 1;
         if(iArray.length > 0) {
@@ -88,7 +88,7 @@ public class ObjectInspector {
     /*
     method to inspect constructors: prints constructor name, parameters (if any), and modifiers.
      */
-    public static void inspectConstructors(Class c, int depth) {
+    public void inspectConstructors(Class c, int depth) {
         Constructor[] cArray = c.getConstructors();                 //array of class c's constructors
         int indents = depth + 1;
 
@@ -109,7 +109,7 @@ public class ObjectInspector {
     /*
     method to inspect methods: prints method name, exceptions (if any), parameters (if any), return type, and modifiers.
      */
-    public static void inspectMethods(Class c, int depth) {
+    public void inspectMethods(Class c, int depth) {
         Method[] methods = c.getDeclaredMethods();                             //gets all methods of any visibility in Class "c"
         int indents = depth + 1;
 
@@ -138,7 +138,7 @@ public class ObjectInspector {
     this method can be enabled for recursive introspection; if recursive is true, then field will be
     inspected in the same manner as an object.
     */
-    public static void inspectFields(Class c, Object obj, boolean recursive, int depth) {
+    public void inspectFields(Class c, Object obj, boolean recursive, int depth) {
         Field[] fields = c.getDeclaredFields();
         int indents = depth + 1;
 
@@ -171,7 +171,7 @@ public class ObjectInspector {
     this method can be enabled for recursive introspection; if recursive is true, then field will be
     inspected in the same manner as an object.
    */
-    private static void inspectArray(Class c, Object obj, boolean recursive, int depth) {
+    private void inspectArray(Class c, Object obj, boolean recursive, int depth) {
         int indents = depth + 1;
         format(indents, "ARRAY: ");          //figure out how to get array name***
 
@@ -192,7 +192,7 @@ public class ObjectInspector {
     /*
     method to determine the type of a value from a field or array.
      */
-    public static void getValue(Object obj, Class value, boolean recursive, int depth) {
+    public void getValue(Object obj, Class value, boolean recursive, int depth) {
         int indents = depth + 1;
         if(obj == null)                                     //if element at arr[i] is null
             format(indents + 1, "null");
@@ -210,7 +210,7 @@ public class ObjectInspector {
     if recursive is false, information is simply found of for the field, otherwise
     we further inspect the field/array in the same manner of a regular object.
      */
-    private static void recursiveIntrospection(Object obj, boolean recursive, int depth) {
+    private void recursiveIntrospection(Object obj, boolean recursive, int depth) {
         int indents = depth + 1;
         if (!recursive) {
             format(indents, "- REFERENCE VALUE: " + obj.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(obj)));
@@ -222,7 +222,7 @@ public class ObjectInspector {
     /*
     helper method to print out parameter types.
      */
-    private static void printParameters(int indents, Class[] pArray) {
+    private void printParameters(int indents, Class[] pArray) {
         if(pArray.length > 0){                                  //check that there is at least one parameter
             format(indents + 1, "- PARAMETER TYPES: ");
             printTypes(indents + 2, pArray);
@@ -234,7 +234,7 @@ public class ObjectInspector {
     /*
     helper method to print out exception types.
      */
-    private static void printExceptions(int indents, Class[] eArray) {
+    private void printExceptions(int indents, Class[] eArray) {
         if(eArray.length > 0) {                                 //check that there is at least one exception
             format(indents + 1, "- EXCEPTIONS THROWN: ");
             printTypes(indents + 2, eArray);
@@ -246,7 +246,7 @@ public class ObjectInspector {
     /*
     Helper method to handle parameter and exception types array traversal and printing out each element.
      */
-    public static void printTypes(int indents, Class[] typeArray) {
+    public void printTypes(int indents, Class[] typeArray) {
         for(Class type : typeArray)
             format(indents, type.getSimpleName());
     }
@@ -255,7 +255,7 @@ public class ObjectInspector {
     method to format indentation for output; pads left side of str with intervals of 3 spaces
     depending on the depth.
      */
-    private static void format(int indents, Object obj){
+    private void format(int indents, Object obj){
         String str = String.valueOf(obj);
         for(int i = 0; i < indents; i++)
             System.out.print("   "); //I used 3 spaces, indentation using tab not as clean

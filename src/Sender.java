@@ -5,23 +5,16 @@ import org.jdom2.output.XMLOutputter;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Sender {
     public static void main(String[] args){
         ObjectCreator objectCreator = new ObjectCreator();
         Serializer serializer = new Serializer();
-        Scanner input = new Scanner(System.in);
-
-//        System.out.print("Enter Server Host: ");
-//        String host = input.nextLine();
-//        System.out.print("Enter Server Port: ");
-//        int port = input.nextInt();
 
         ArrayList<Object> objects = objectCreator.createObjectsMenu();
 
         try{
-            Socket socket = new Socket("localhost", 4444);
+            Socket socket = new Socket("localhost", 5000);
 
             System.out.println("\nSerializing Objects into a document...");
             Document doc = serializer.serialize(objects);
@@ -39,7 +32,7 @@ public class Sender {
             System.out.println("Document Successfully Sent.");
 
             socket.close();
-        }catch(IOException | IllegalAccessException e){
+        }catch(IOException e){
             e.printStackTrace();
         }
     }
