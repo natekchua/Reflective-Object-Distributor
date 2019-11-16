@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2487b3aa-3655-4bd1-b3c4-96d9f8cf3f48" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/Serializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Serializer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/log.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tests/SerializerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -28,6 +30,10 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
@@ -116,7 +122,7 @@
       <workItem from="1573605100388" duration="209000" />
       <workItem from="1573605327254" duration="9808000" />
       <workItem from="1573682225436" duration="13425000" />
-      <workItem from="1573710943516" duration="48824000" />
+      <workItem from="1573710943516" duration="50634000" />
     </task>
     <servers />
   </component>

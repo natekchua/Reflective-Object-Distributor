@@ -1,0 +1,77 @@
+commit b580361a87a2a2ed2fe8d3a955aa9a0446b84f14
+Author: Nathan Chua <nchua235@mtroyal.ca>
+Date:   Fri Nov 15 22:52:44 2019 -0700
+
+    added documentation
+
+commit 8e975c189765da257f138cecd4b7348a4766347c
+Author: Nathan Chua <nchua235@mtroyal.ca>
+Date:   Fri Nov 15 22:37:43 2019 -0700
+
+    finalized serializer and deserializer classes by doing refactorings and fixing bugs.
+
+commit 968e01673f4dfe5996649b1eca52fef3ad6d1b70
+Author: Nathan Chua <nchua235@mtroyal.ca>
+Date:   Thu Nov 14 19:04:25 2019 -0700
+
+    fixed issues with deserialization and added visualization of recreated objects.
+
+commit 5f6d6726743736c7235918156a3a55c7d22c5b94
+Author: Nathan Chua <nchua235@mtroyal.ca>
+Date:   Thu Nov 14 17:13:11 2019 -0700
+
+    started deserialization
+
+commit c28f04f18dc47f64fce72fa329fcc2f43dd863eb
+Author: Nathan Chua <nchua235@mtroyal.ca>
+Date:   Wed Nov 13 18:36:50 2019 -0700
+
+    working receiver and sender. document with serialized objects successfully sent over network
+
+commit 071f687704bf91b6743923ce5fe6f644434a12a9
+Author: Nathan Chua <nchua235@mtroyal.ca>
+Date:   Wed Nov 13 18:01:42 2019 -0700
+
+    fixed serializer class, had too many bugs
+
+commit 3ec0cccab35a784ef7072a34e580c6d3150f9f65
+Author: Nathan Chua <nchua235@mtroyal.ca>
+Date:   Tue Nov 12 21:45:46 2019 -0700
+
+    started sender and receiver stuff & added XMLOutputter to test serialized object output
+
+commit 1a482d6901af0275e783e60aff61e1ffade11dc5
+Author: Nathan Chua <nchua235@mtroyal.ca>
+Date:   Mon Nov 11 01:25:29 2019 -0700
+
+    finished serializer class (created helper methods for XML document tags). created sender class
+
+commit 18a0f6f9e51f67c8fa5025afe3258fca9af00e5a
+Author: Nathan Chua <nchua235@mtroyal.ca>
+Date:   Sun Nov 10 23:30:14 2019 -0700
+
+    fixed object templates and objectCreator. Values of objects are now set through the constructor upon object instantiation rather than using setter methods.
+
+commit 65b7b32bfab262109b39dd3177e81ec00d4b1787
+Author: Nathan Chua <nchua235@mtroyal.ca>
+Date:   Thu Nov 7 20:14:41 2019 -0700
+
+    Added Client and Server classes and started serialize method in Serializer
+
+commit da3556a371c4a40acc3ce71f055fd73bde7a7afd
+Author: Nathan Chua <nchua235@mtroyal.ca>
+Date:   Sat Nov 2 18:03:38 2019 -0600
+
+    Finished ObjectCreator and object types.
+
+commit eca1d5dc514a7c953c6356407c39d2275a4501b3
+Author: Nathan Chua <nchua235@mtroyal.ca>
+Date:   Sat Nov 2 16:01:00 2019 -0600
+
+    Created class structure and started text-based UI for creating objects.
+
+commit 19f41755aacd96ce78be210ba142d28bebc3246f
+Author: Nathan Chua <nchua235@mtroyal.ca>
+Date:   Fri Nov 1 17:14:59 2019 -0600
+
+    Initial Commit
